@@ -14,9 +14,10 @@
 // Home Não Logados
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/catalogo', 'GeneroController@listandoFilmesPorGenero');
+Route::get('/catalogo', 'FilmeController@listandoCatalogoDeFilmes')->name('catalogo');
+Route::get('/catalogo/{id}', 'GeneroController@listandoFilmesPorGenero');
 
 Auth::routes();
 
@@ -25,10 +26,10 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/home', 'HomeController@index')->name('home');
 
     // Listar Filmes
-    Route::get('/filmes', 'FilmeController@listandoFilmes');
+    Route::get('/filmes', 'FilmeController@listandoFilmes')->name('filmes');
 
     // Adicionar Filme
-    Route::get('/filmes/adicionar', 'FilmeController@adicionandoFilme');
+    Route::get('/filmes/adicionar', 'FilmeController@adicionandoFilme')->name('filmes-adicionar');
     Route::post('/filmes/adicionar', 'FilmeController@salvandoFilme');
 
     // Modificando Filme
@@ -39,10 +40,10 @@ Route::middleware(['auth'])->group(function (){
     Route::delete('/filmes/remover/{id}', 'FilmeController@removendoFilme');
 
     // Listar Gêneros
-    Route::get('/generos', 'GeneroController@listandoGeneros');
+    Route::get('/generos', 'GeneroController@listandoGeneros')->name('generos');
 
     // Adicionar Gênero
-    Route::get('/generos/adicionar', 'GeneroController@adicionandoGenero');
+    Route::get('/generos/adicionar', 'GeneroController@adicionandoGenero')->name('generos-adicionar');
     Route::post('/generos/adicionar', 'GeneroController@salvandoGenero');
 
     // Modificando Gênero
@@ -53,10 +54,10 @@ Route::middleware(['auth'])->group(function (){
     Route::delete('/generos/remover/{id}', 'GeneroController@removendoGenero');
 
     // Listar Atores
-    Route::get('/atores', 'AtorController@listandoAtores');
+    Route::get('/atores', 'AtorController@listandoAtores')->name('atores');
 
     // Adicionar Ator
-    Route::get('/atores/adicionar', 'AtorController@adicionandoAtor');
+    Route::get('/atores/adicionar', 'AtorController@adicionandoAtor')->name('atores-adicionar');
     Route::post('/atores/adicionar', 'AtorController@salvandoAtor');
 
     // Modificando Ator
