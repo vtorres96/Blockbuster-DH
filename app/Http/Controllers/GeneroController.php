@@ -60,10 +60,11 @@ class GeneroController extends Controller
         return redirect('/generos');
     }
 
-    public function listandoFilmesPorGenero(){
+    public function listandoFilmesPorGenero($id){
         $generos = Genero::all();
-        $filmes = Filme::orderBy('titulo', 'ASC')->paginate(5);
+        $generoEscolhido = Genero::find($id);
+        $filmes = Filme::where('id_genero', '=', $id)->paginate(5);
 
-        return view('catalogoDeFilmes')->with(['generos' => $generos, 'filmes' => $filmes]);
+        return view('catalogoDeFilmes')->with(['generos' => $generos, 'generoEscolhido' => $generoEscolhido, 'filmes' => $filmes]);
     }
 }
