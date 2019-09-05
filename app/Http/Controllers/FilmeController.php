@@ -15,11 +15,18 @@ class FilmeController extends Controller
         return view('listandoFilmes')->with('filmes', $filmes);
     }
 
+    public function listandoCatalogoDeFilmes(){
+        $filmes = Filme::orderBy('titulo', 'ASC')->paginate(5);
+        $generos = Genero::all();
+
+        return view('catalogoDeFilmes')->with(['filmes' => $filmes, 'generos' => $generos]);
+    }
+
     public function adicionandoFilme(){
         $atores = Ator::orderBy('nome', 'ASC')->get();
         $generos = Genero::orderBy('descricao', 'ASC')->get();
 
-        return view('adicionandoFilme')->with(["atores" => $atores, "generos" => $generos]);
+        return view('adicionandoFilme')->with(['atores' => $atores, 'generos' => $generos]);
     }
 
     public function salvandoFilme(Request $request){
@@ -86,26 +93,27 @@ class FilmeController extends Controller
 
         $arquivo = $request->file('imagem');
 
-        if (empty($arquivo)) {
-            abort(400, 'Nenhum arquivo foi enviado');
+        if (!empty($arquivo)) {
+            // salvando imagem no projeto
+            $nomePasta = 'uploads';
+
+            $arquivo->storePublicly($nomePasta);
+
+            $caminhoAbsoluto = public_path()."/storage/$nomePasta";
+
+            $nomeArquivo = $arquivo->getClientOriginalName();
+
+            $caminhoRelativo = "storage/$nomePasta/$nomeArquivo";
+
+            // movendo imagem
+            $arquivo->move($caminhoAbsoluto, $nomeArquivo);
         }
-
-        // salvando imagem no projeto
-        $nomePasta = 'uploads';
-
-        $arquivo->storePublicly($nomePasta);
-
-        $caminhoAbsoluto = public_path()."/storage/$nomePasta";
-
-        $nomeArquivo = $arquivo->getClientOriginalName();
-
-        $caminhoRelativo = "storage/$nomePasta/$nomeArquivo";
-
-        // movendo imagem
-        $arquivo->move($caminhoAbsoluto, $nomeArquivo);
 
         $filme->titulo = $request->input('titulo');
         $filme->sinopse = $request->input('sinopse');
+        if (empty($arquivo)) {
+            $filme->imagem = $filme->imagem;
+        }
         $filme->imagem = $caminhoRelativo;
         $filme->id_protagonista = $request->input('ator');
         $filme->id_genero = $request->input('genero');
