@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('title', 'Blockbuster DH - Filmes')
 
@@ -60,7 +60,7 @@
                 <input type="text" name="sinopse" value="{{$filme->sinopse}}" class="form-control" id="sinopse">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
-                    <img class="img-fluid w-100" src="{{url($filme->imagem)}}" alt="">
+                    <img class="w-100" src="{{url($filme->imagem)}}" alt="">
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <label for="imagem">Imagem</label>
