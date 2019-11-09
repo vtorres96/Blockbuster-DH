@@ -30,7 +30,13 @@
             </table>
         </article>
         <article class="col-9">
-            <div class="card-deck">
+            <div class="row">
+                <div class="col-12 pb-4">
+                    <form class="form-inline col-12" action="{{ url('/filtrar-filmes') }}" method="GET">
+                        <input class="form-control col-10" type="text" name="search" id="search" placeholder="O que você procura?">
+                        <button class="btn btn-outline-success col-2" type="submit">Pesquisar</button>
+                    </form>
+                </div>
                 @if($filmes->isEmpty())
                     <section class="row">
                         <header class="col-12">
@@ -48,7 +54,7 @@
                         </header>
                     </section>
                     @foreach ($filmes as $filme)
-                        <div class="card col-4">
+                        <div class="col-12 col-md-4 col-4 col-lg-4">
                             <img src="{{url($filme->imagem)}}" class="card-img-top" alt="{{$filme->titulo}}">
                             <div class="card-body">
                                 <h5 class="card-title">{{$filme->titulo}}</h5>
@@ -60,8 +66,8 @@
                     @endforeach
                 @endif
             </div>
-            <div class="d-flex justify-content-center">
-                {{ $filmes->links() }}
+            <div class="d-flex justify-content-center mt-4">
+                {{ $filmes->appends(['search' => isset($search) ? $search : ''])->links() }}
             </div>
         </article>
     </section>

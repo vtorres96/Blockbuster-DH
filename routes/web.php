@@ -16,9 +16,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Cátalogo de Filmes
 Route::get('/catalogo', 'FilmeController@listandoCatalogoDeFilmes')->name('catalogo');
 Route::get('/catalogo/{id}', 'GeneroController@listandoFilmesPorGenero');
 
+// Filtrar Filme
+Route::get('/filtrar-filmes', 'FilmeController@filtrarFilme');
+
+// Usuários Logados
 Auth::routes();
 
 Route::middleware(['auth'])->group(function (){

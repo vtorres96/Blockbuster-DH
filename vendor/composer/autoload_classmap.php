@@ -644,6 +644,7 @@ return array(
     'Faker\\ValidGenerator' => $vendorDir . '/fzaninotto/faker/src/Faker/ValidGenerator.php',
     'Fideloper\\Proxy\\TrustProxies' => $vendorDir . '/fideloper/proxy/src/TrustProxies.php',
     'Fideloper\\Proxy\\TrustedProxyServiceProvider' => $vendorDir . '/fideloper/proxy/src/TrustedProxyServiceProvider.php',
+    'FilmesTableSeeder' => $baseDir . '/database/seeds/FilmesTableSeeder.php',
     'GenerosTableSeeder' => $baseDir . '/database/seeds/GenerosTableSeeder.php',
     'Hamcrest\\Arrays\\IsArray' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
     'Hamcrest\\Arrays\\IsArrayContaining' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',

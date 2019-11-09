@@ -130,4 +130,17 @@ class FilmeController extends Controller
 
         return redirect('/filmes');
     }
+
+    public function filtrarFilme(Request $request){
+        $generos = Genero::all();
+
+        $search = $request->input('search');
+
+        $filmes = Filme::
+              where('titulo', 'like', '%'.$search.'%')
+              ->orWhere('sinopse', 'like', '%'.$search.'%')
+              ->paginate(5);
+
+        return view('catalogoDeFilmes')->with(['filmes' => $filmes, 'search' => $search, 'generos' => $generos]);
+    }
 }
