@@ -69,7 +69,7 @@
                 <div class="form-group col-md-6 col-sm-12">
                     <label for="genero">Gênero</label>
                     <select class="form-control" name="genero" id="genero">
-                        <option value="">Selecione um gênero</option>
+                        <option value="{{ $filme->id_genero }}">{{ $filme->genero->descricao }}</option>
                         @foreach ($generos as $genero)
                             <option value="{{$genero->id}}">{{$genero->descricao}}</option>
                         @endforeach
@@ -78,7 +78,7 @@
                 <div class="form-group col-md-6 col-sm-12">
                     <label for="ator">Ator Protagonista</label>
                     <select class="form-control" name="ator" id="ator">
-                        <option value="">Selecione um protagonista</option>
+                        <option value="{{ $filme->id_protagonista }}">{{ $filme->ator->nome }}</option>
                         @foreach ($atores as $ator)
                             <option value="{{$ator->id}}">{{$ator->nome}}</option>
                         @endforeach

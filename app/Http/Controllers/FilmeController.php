@@ -93,27 +93,18 @@ class FilmeController extends Controller
 
         $arquivo = $request->file('imagem');
 
-        if (!empty($arquivo)) {
-            // salvando imagem no projeto
-            $nomePasta = 'uploads';
-
-            $arquivo->storePublicly($nomePasta);
-
-            $caminhoAbsoluto = public_path()."/storage/$nomePasta";
-
+        if (empty($arquivo)) {
+            $caminhoRelativo = $filme->imagem;
+        } else {
+            $arquivo->storePublicly('uploads');
+            $caminhoAbsoluto = public_path()."/storage/uploads";
             $nomeArquivo = $arquivo->getClientOriginalName();
-
-            $caminhoRelativo = "storage/$nomePasta/$nomeArquivo";
-
-            // movendo imagem
+            $caminhoRelativo = "storage/uploads/$nomeArquivo";
             $arquivo->move($caminhoAbsoluto, $nomeArquivo);
         }
 
         $filme->titulo = $request->input('titulo');
         $filme->sinopse = $request->input('sinopse');
-        if (empty($arquivo)) {
-            $filme->imagem = $filme->imagem;
-        }
         $filme->imagem = $caminhoRelativo;
         $filme->id_protagonista = $request->input('ator');
         $filme->id_genero = $request->input('genero');
