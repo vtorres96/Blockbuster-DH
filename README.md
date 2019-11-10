@@ -8,6 +8,12 @@ application developed with laravel (version 5.8)
 $ composer install
 ```
 
+## How to run the dump-autoload
+
+```sh
+$ composer dump-autoload
+```
+
 ## How to run the migrations
 
 ```sh
