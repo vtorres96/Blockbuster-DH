@@ -16,6 +16,6 @@ class AtoresTableSeeder extends Seeder
             "nome" => "Silvester Stalonge"
         ]);
 
-        factory(Ator::class, 9)->create();
+        factory(Ator::class, 19)->create();
     }
 }

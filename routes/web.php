@@ -17,7 +17,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 // Cátalogo de Filmes
-Route::get('/catalogo', 'FilmeController@listandoCatalogoDeFilmes')->name('catalogo');
+Route::get('/catalogo', 'FilmeController@listandoCatalogo')->name('catalogo');
 Route::get('/catalogo/genero/{id}', 'GeneroController@listandoFilmesPorGenero');
 
 // Filtrar Filme

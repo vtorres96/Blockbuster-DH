@@ -9,8 +9,7 @@ $factory->define(Filme::class, function (Faker $faker) {
     return [
         'titulo' => $faker->firstName,
         'sinopse' => $faker->lastName,
-        'imagem' => 'storage/uploads/harry-potter.jpg',
-        'id_protagonista' => mt_rand(1,21),
-        'id_genero' => mt_rand(1,7)
+        'id_protagonista' => mt_rand(1,20),
+        'id_genero' => mt_rand(1,6)
     ];
 });
