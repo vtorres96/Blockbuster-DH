@@ -14,6 +14,9 @@ class ChaveEstrangeiraFilmes extends Migration
     public function up()
     {
         Schema::table('filmes', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_protagonista');
+            $table->unsignedBigInteger('id_genero');
+
             $table->foreign('id_protagonista')->references('id')->on('atores');
             $table->foreign('id_genero')->references('id')->on('generos');
         });
@@ -27,8 +30,12 @@ class ChaveEstrangeiraFilmes extends Migration
     public function down()
     {
         Schema::table('filmes', function (Blueprint $table) {
-            $table->foreign('id_protagonista')->references('id')->on('atores');
-            $table->foreign('id_genero')->references('id')->on('generos');
+            Schema::disableForeignKeyConstraints();
+            $table->dropForeign(['id_protagonista']);
+            $table->dropForeign(['id_genero']);
+            $table->dropColumn('id_protagonista');
+            $table->dropColumn('id_genero');
+            Schema::enableForeignKeyConstraints();
         });
     }
 }
