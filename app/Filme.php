@@ -19,4 +19,8 @@ class Filme extends Model
     public function ator(){
         return $this->hasOne(Ator::class, 'id', 'id_protagonista');
     }
+
+    public function getImagemImageAttribute($value) {
+        return $this->imagem == null ? asset('img/null.jpeg') : asset($this->imagem);
+    }
 }
