@@ -38,24 +38,15 @@ class FilmeController extends Controller
         ]);
 
         $arquivo = $request->file('imagem');
-
         if (empty($arquivo)) {
-            abort(400, 'Nenhum arquivo foi enviado');
+            $caminhoRelativo = null;
+        } else {
+            $arquivo->storePublicly('uploads');
+            $caminhoAbsoluto = public_path()."/storage/uploads";
+            $nomeArquivo = $arquivo->getClientOriginalName();
+            $caminhoRelativo = "storage/uploads/$nomeArquivo";
+            $arquivo->move($caminhoAbsoluto, $nomeArquivo);
         }
-
-        // salvando imagem no projeto
-        $nomePasta = 'uploads';
-
-        $arquivo->storePublicly($nomePasta);
-
-        $caminhoAbsoluto = public_path()."/storage/$nomePasta";
-
-        $nomeArquivo = $arquivo->getClientOriginalName();
-
-        $caminhoRelativo = "storage/$nomePasta/$nomeArquivo";
-
-        // movendo imagem
-        $arquivo->move($caminhoAbsoluto, $nomeArquivo);
 
         $filme = Filme::create([
             "titulo" => $request->input('titulo'),
@@ -92,7 +83,6 @@ class FilmeController extends Controller
         ]);
 
         $arquivo = $request->file('imagem');
-
         if (empty($arquivo)) {
             $caminhoRelativo = $filme->imagem;
         } else {

@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Blockbuster DH - Filmes')
-
 @section('content')
     <section class="row">
         <article class="col-3">
@@ -20,7 +18,7 @@
                     @foreach ($generos as $genero)
                         <tr>
                             <td scope="row">
-                                <a href="/catalogo/{{$genero->id}}">
+                                <a href="/catalogo/genero/{{$genero->id}}">
                                     {{$genero->descricao}}
                                 </a>
                             </td>
@@ -32,7 +30,7 @@
         <article class="col-9">
             <div class="row">
                 <div class="col-12 pb-4">
-                    <form class="form-inline col-12" action="{{ url('/filtrar-filmes') }}" method="GET">
+                    <form class="form-inline col-12" action="{{ route('search') }}" method="GET">
                         <input class="form-control col-10" type="text" name="search" id="search" placeholder="O que você procura?">
                         <button class="btn btn-outline-success col-2" type="submit">Pesquisar</button>
                     </form>

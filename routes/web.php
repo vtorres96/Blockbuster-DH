@@ -18,10 +18,10 @@ Route::get('/', function () {
 
 // Cátalogo de Filmes
 Route::get('/catalogo', 'FilmeController@listandoCatalogoDeFilmes')->name('catalogo');
-Route::get('/catalogo/{id}', 'GeneroController@listandoFilmesPorGenero');
+Route::get('/catalogo/genero/{id}', 'GeneroController@listandoFilmesPorGenero');
 
 // Filtrar Filme
-Route::get('/filtrar-filmes', 'FilmeController@filtrarFilme');
+Route::get('/filtrar-filmes', 'FilmeController@filtrarFilme')->name('search');
 
 // Usuários Logados
 Auth::routes();
