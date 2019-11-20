@@ -31,16 +31,14 @@
             <div class="row">
                 <div class="col-12 pb-4">
                     <form class="form-inline col-12" action="{{ route('search') }}" method="GET">
-                        <input class="form-control col-10" type="text" name="search" id="search" placeholder="O que você procura?">
+                        <input class="form-control col-10" type="text" name="search" value="{{ old('search') }}" id="search" placeholder="Pesquise por título ou sinopse?">
                         <button class="btn btn-outline-success col-2" type="submit">Pesquisar</button>
                     </form>
                 </div>
                 @if($filmes->isEmpty())
-                    <section class="row">
-                        <header class="col-12">
-                            <h1 class="col-12 text-center">Que pena! Não temos filmes disponíveis</h1>
-                        </header>
-                    </section>
+                    <div class="col-12">
+                        <h1 class="col-12 text-center">Que pena! Não temos filmes disponíveis</h1>
+                    </div>
                 @else
                     <section class="row col-12 mb-4">
                         <header class="col-12">
@@ -53,7 +51,7 @@
                     </section>
                     @foreach ($filmes as $filme)
                         <div class="col-12 col-md-4 col-4 col-lg-4">
-                            <img src="{{url($filme->imagem)}}" class="card-img-top" alt="{{$filme->titulo}}">
+                            <img src="{{ $filme->imagem_image }}" class="card-img-top" alt="{{$filme->titulo}}">
                             <div class="card-body">
                                 <h5 class="card-title">{{$filme->titulo}}</h5>
                                 <p class="card-text">{{$filme->sinopse}}</p>

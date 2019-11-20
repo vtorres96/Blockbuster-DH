@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Blockbuster DH</title>
+        <title>@yield('title')</title>
         <link rel="shortcut icon" sizes="60x60" href="https://cdn.iconscout.com/icon/free/png-256/laravel-226015.png">
         <link rel="icon" type="image/png" sizes="60x60" href="https://cdn.iconscout.com/icon/free/png-256/laravel-226015.png">
         <!-- Fonts -->

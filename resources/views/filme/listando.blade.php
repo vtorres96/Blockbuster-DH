@@ -1,19 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'Blockbuster DH - Gêneros')
+@section('title', 'Blockbuster - Filmes')
 
 @section('content')
-    @if($generos->isEmpty())
-        <section class="row">
-            <header class="col-12">
-                <h1 class="col-12 text-center">Que pena! Não temos gêneros cadastrados na plataforma</h1>
-            </header>
-        </section>
+    @if($filmes->isEmpty())
+        <div class="col-12">
+            <h1 class="col-12 text-center">Que pena! Não temos filmes cadastrados na plataforma</h1>
+        </div>
     @else
         <section class="row">
             <header class="col-12">
-                <h1 class="col-12 text-center">Gêneros</h1>
-                <p class="col-12 d-block text-center"><b>listando todos os gêneros da nossa plataforma</b></p>
+                <h1 class="col-12 text-center">Filmes</h1>
+                <p class="col-12 d-block text-center"><b>listando todos os filmes da nossa plataforma</b></p>
             </header>
         </section>
         <section class="row">
@@ -21,38 +19,48 @@
                 <table class="table">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">Descrição</th>
+                            <th scope="col">Capa</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Sinopse</th>
+                            <th scope="col">Protagonista</th>
+                            <th scope="col">Gẽnero</th>
                             <th scope="col" colspan="2">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($generos as $genero)
+                        @foreach($filmes as $filme)
                         <tr>
-                            <td scope="row">{{$genero->descricao}}</td>
+                            <td scope="row">
+                                <img width="80" height="80" src="{{ $filme->imagem_image }}" alt="">
+                            </td>
+                            <td scope="row">{{$filme->titulo}}</td>
+                            <td scope="row">{{$filme->sinopse}}</td>
+                            <td scope="row">{{$filme->ator->nome}}</td>
+                            <td scope="row">{{$filme->genero->descricao}}</td>
                             <td>
-                                <a href="/generos/modificar/{{$genero->id}}">
+                                <a href="/filmes/modificar/{{$filme->id}}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href="#" data-toggle="modal" data-target="#modal{{ $genero->id }}">
+                                <a href="#" data-toggle="modal" data-target="#modal{{ $filme->id }}">
                                     <i class="fas fa-trash"></i>
                                 </a>
-                                <div class="modal fade" id="modal{{ $genero->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modal{{ $filme->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Deseja excluir o gênero {{ $genero->titulo }} ?</h5>
+                                                <h5 class="modal-title">Deseja excluir o filme {{ $filme->titulo }} ?</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Gênero: {{ $genero->descricao }}</p>
+                                                <p>Filme: {{ $filme->titulo }}</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <form action="/generos/remover/{{ $genero->id }}" method="POST">
+                                                <form action="/filmes/remover/{{ $filme->id }}" method="POST">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button type="submit" class="btn btn-danger">Excluir</a>
@@ -67,7 +75,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    {{ $generos->links() }}
+                    {{ $filmes->appends(['search' => isset($search) ? $search : ''])->links() }}
                 </div>
             </article>
         </section>
