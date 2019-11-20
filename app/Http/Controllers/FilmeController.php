@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\FilmeRequest;
 use App\Filme;
 use App\Ator;
 use App\Genero;
@@ -10,32 +11,27 @@ use App\Genero;
 class FilmeController extends Controller
 {
     public function listandoFilmes(){
-        $filmes = Filme::orderBy('id', 'ASC')->paginate(5);
+        $filmes = Filme::orderBy('id', 'ASC')->paginate(10);
 
-        return view('listandoFilmes')->with('filmes', $filmes);
+        return view('filme.listando')->with('filmes', $filmes);
     }
 
-    public function listandoCatalogoDeFilmes(){
-        $filmes = Filme::orderBy('titulo', 'ASC')->paginate(5);
+    public function listandoCatalogo(){
+        $filmes = Filme::orderBy('titulo', 'ASC')->paginate(9);
         $generos = Genero::all();
 
-        return view('catalogoDeFilmes')->with(['filmes' => $filmes, 'generos' => $generos]);
+        return view('catalogo')->with(['filmes' => $filmes, 'generos' => $generos]);
     }
 
     public function adicionandoFilme(){
         $atores = Ator::orderBy('nome', 'ASC')->get();
         $generos = Genero::orderBy('descricao', 'ASC')->get();
 
-        return view('adicionandoFilme')->with(['atores' => $atores, 'generos' => $generos]);
+        return view('filme.adicionando')->with(['atores' => $atores, 'generos' => $generos]);
     }
 
-    public function salvandoFilme(Request $request){
-        $request->validate([
-            "titulo" => "required|max:50",
-            "sinopse" => "required|max:200",
-            "genero" => "required",
-            "ator" => "required"
-        ]);
+    public function salvandoFilme(FilmeRequest $request){
+        $request->all();
 
         $arquivo = $request->file('imagem');
         if (empty($arquivo)) {
@@ -67,20 +63,15 @@ class FilmeController extends Controller
         $atores = Ator::orderBy('nome', 'ASC')->get();
         $generos = Genero::orderBy('descricao', 'ASC')->get();
 
-        return view('adicionandoFilme')->with(
+        return view('filme.editando')->with(
             ["filme" => $filme, "atores" => $atores, "generos" => $generos]
         );
     }
 
-    public function alterandoFilme(Request $request, $id){
+    public function alterandoFilme(FilmeRequest $request, $id){
         $filme = Filme::find($id);
 
-        $request->validate([
-            "titulo" => "required|max:50",
-            "sinopse" => "required|max:200",
-            "ator" => "required",
-            "genero" => "required"
-        ]);
+        $request->all();
 
         $arquivo = $request->file('imagem');
         if (empty($arquivo)) {
@@ -120,8 +111,8 @@ class FilmeController extends Controller
         $filmes = Filme::
               where('titulo', 'like', '%'.$search.'%')
               ->orWhere('sinopse', 'like', '%'.$search.'%')
-              ->paginate(5);
+              ->paginate(9);
 
-        return view('catalogoDeFilmes')->with(['filmes' => $filmes, 'search' => $search, 'generos' => $generos]);
+        return view('catalogo')->with(['filmes' => $filmes, 'search' => $search, 'generos' => $generos]);
     }
 }

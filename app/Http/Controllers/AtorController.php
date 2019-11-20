@@ -8,13 +8,13 @@ use App\Ator;
 class AtorController extends Controller
 {
     public function listandoAtores(){
-        $atores = Ator::orderBy('id', 'ASC')->paginate(5);
+        $atores = Ator::orderBy('id', 'ASC')->paginate(10);
 
-        return view('listandoAtores')->with('atores', $atores);
+        return view('ator.listando')->with('atores', $atores);
     }
 
     public function adicionandoAtor(){
-        return view('adicionandoAtor');
+        return view('ator.adicionando');
     }
 
     public function salvandoAtor(Request $request){
@@ -34,7 +34,7 @@ class AtorController extends Controller
     public function modificandoAtor($id){
         $ator = Ator::find($id);
 
-        return view('adicionandoAtor')->with('ator', $ator);
+        return view('ator.editando')->with('ator', $ator);
     }
 
     public function alterandoAtor(Request $request, $id){

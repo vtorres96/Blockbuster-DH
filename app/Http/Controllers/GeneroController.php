@@ -9,13 +9,13 @@ use App\Filme;
 class GeneroController extends Controller
 {
     public function listandoGeneros(){
-        $generos = Genero::orderBy('id', 'ASC')->paginate(5);
+        $generos = Genero::orderBy('id', 'ASC')->paginate(10);
 
-        return view('listandoGeneros')->with('generos', $generos);
+        return view('genero.listando')->with('generos', $generos);
     }
 
     public function adicionandoGenero(){
-        return view('adicionandoGenero');
+        return view('genero.adicionando');
     }
 
     public function salvandoGenero(Request $request){
@@ -35,7 +35,7 @@ class GeneroController extends Controller
     public function modificandoGenero($id){
         $genero = Genero::find($id);
 
-        return view('adicionandoGenero')->with('genero', $genero);
+        return view('genero.editando')->with('genero', $genero);
     }
 
     public function alterandoGenero(Request $request, $id){
@@ -63,8 +63,8 @@ class GeneroController extends Controller
     public function listandoFilmesPorGenero($id){
         $generos = Genero::all();
         $generoEscolhido = Genero::find($id);
-        $filmes = Filme::where('id_genero', '=', $id)->paginate(5);
+        $filmes = Filme::where('id_genero', '=', $id)->paginate(10);
 
-        return view('catalogoDeFilmes')->with(['generos' => $generos, 'generoEscolhido' => $generoEscolhido, 'filmes' => $filmes]);
+        return view('catalogo')->with(['generos' => $generos, 'generoEscolhido' => $generoEscolhido, 'filmes' => $filmes]);
     }
 }
